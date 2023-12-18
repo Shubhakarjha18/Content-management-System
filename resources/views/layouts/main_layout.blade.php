@@ -56,95 +56,95 @@
     <!-- Forgot Password Form End -->
   </div>
     
-<script>
-  $(document).ready(function () {
-    $("#register-link").on("click", function () {
-      console.log("Register link clicked");
-      $("#login-box").hide();
-      $("#register-box").show();
-    });
-
-    $("#login-link").on("click", function () {
-      console.log("Login link clicked");
-      $("#login-box").show();
-      $("#register-box").hide();
-    });
-
-    $("#forgot-link").on("click", function () {
-      console.log("Forgot link clicked");
-      $("#login-box").hide();
-      $("#forgot-box").show();
-    });
-
-    $("#back-link").on("click", function () {
-      console.log("Back link clicked");
-      $("#login-box").show();
-      $("#forgot-box").hide();
-    });
-
-
-    var data;
-
-    $("#register-form").submit(function (e) {
-    e.preventDefault();
-    $("#register-btn").val('Please Wait..');
-
-    var form = $("#register-form")[0];
-        data = new FormData(form);
-
-    $.ajax({
-        type: "POST",
-        url: "{{ route('signup.post') }}",
-        data: data, 
-       
-        processData: false,
-        contentType: false,
-        success: function (response) {
-            console.log(response);
-            $("#register-btn").val('Sign Up');
-            $("#passError").text('Registered');
-            // $("#register-box").hide();
-            // $("#login-box").show();
-
-        },
-        error: function (e) {
-            // $("#passError").text('Not Registered');
-            $("#register-btn").val('Sign Up');
-
-        }
-    });
-});
-
-
-
-        $("#login-form").submit(function (e){
-          e.preventDefault();
-          $("#login-btn").val('Please Wait..');
-          var form = $("#login-form")[0];
-        data = new FormData(form);
-
-          $.ajax({
-              type : "POST",
-              url : "{{ route('login.post') }}",
-              data : data,
-              processData: false,
-              contentType: false,
-
-              success: function(resposne){
-                // console.log(response);
-                $("#login-btn").val('Sign In');
-              },
-              error: function (e) {
-            $("#loggError").text('Not logged In');
-            $("#login-btn").val('Please Wait..');
-
-        }
-          });
+  <script>
+    $(document).ready(function () {
+        $("#register-link").on("click", function () {
+            console.log("Register link clicked");
+            $("#login-box").hide();
+            $("#register-box").show();
         });
-
-console.log("Signup route: {{ route('signup.post') }}");
-  });
-</script>
+    
+        $("#login-link").on("click", function () {
+            console.log("Login link clicked");
+            $("#login-box").show();
+            $("#register-box").hide();
+        });
+    
+        $("#forgot-link").on("click", function () {
+            console.log("Forgot link clicked");
+            $("#login-box").hide();
+            $("#forgot-box").show();
+        });
+    
+        $("#back-link").on("click", function () {
+            console.log("Back link clicked");
+            $("#login-box").show();
+            $("#forgot-box").hide();
+        });
+    
+        var data;
+    
+        $("#register-form").submit(function (e) {
+            e.preventDefault();
+            $("#register-btn").val('Please Wait..');
+    
+            var form = $("#register-form")[0];
+            data = new FormData(form);
+    
+            $.ajax({
+                type: "POST",
+                url: "{{ route('signup.post') }}",
+                data: data,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    console.log(response);
+                    if (response.status === 'Registered') {
+                        $("#passError").text('Registered');
+                        window.location.href = "/login";
+                    } else {
+                        $("#passError").text('Not Registered');
+                    }
+    
+                    $("#register-btn").val('Sign Up');
+                },
+                error: function (e) {
+                    console.error(e);
+                    $("#passError").text('Not Registered');
+                    $("#register-btn").val('Sign Up');
+                }
+            });
+        });
+    
+        $("#login-form").submit(function (e) {
+            e.preventDefault();
+            $("#login-btn").val('Please Wait..');
+            var form = $("#login-form")[0];
+            data = new FormData(form);
+    
+            $.ajax({
+                type: "POST",
+                url: "{{ route('login.post') }}",
+                data: data,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    console.log(response);
+                    $("#login-btn").val('Sign In');
+                 
+                },
+                error: function (e) {
+                    console.error(e);
+                    $("#login-btn").val('Please Wait..');
+                    window.location.href = "/home";
+                }
+            });
+        });
+    
+        console.log("Signup route: {{ route('signup.post') }}");
+    });
+    </script>
+    
 
   </body>
 </html>

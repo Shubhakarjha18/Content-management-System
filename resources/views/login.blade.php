@@ -15,17 +15,17 @@
               <div class="input-group-prepend">
                 <span class="input-group-text rounded-0"><i class="far fa-envelope fa-lg fa-fw"></i></span>
               </div>
-              <input type="email" id="email" name="email" class="form-control rounded-0" placeholder="E-Mail" required />
+              <input type="email" id="email" name="email" class="form-control rounded-0"  placeholder="E-Mail" @if(isset($_COOKIE['email'])) value="{{ $_COOKIE['email'] }}" @endif required />
             </div>
             <div class="input-group input-group-lg form-group">
               <div class="input-group-prepend">
                 <span class="input-group-text rounded-0"><i class="fas fa-key fa-lg fa-fw"></i></span>
               </div>
-              <input type="password" id="password" name="password" class="form-control rounded-0" minlength="5" placeholder="Password" required autocomplete="off" />
+              <input type="password" id="password" name="password" class="form-control rounded-0" minlength="5"  placeholder="Password" @if(isset($_COOKIE['password'])) value="{{ $_COOKIE['password'] }}" @endif required autocomplete="off" />
             </div>
             <div class="form-group clearfix">
               <div class="custom-control custom-checkbox float-left">
-                <input type="checkbox" class="custom-control-input" id="customCheck" name="rem" />
+                <input type="checkbox" class="custom-control-input" id="customCheck" name="remember" />
                 <label class="custom-control-label" for="customCheck">Remember me</label>
               </div>
               <div class="forgot float-right">
