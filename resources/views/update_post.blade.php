@@ -10,24 +10,29 @@
 <body>
 
 <div class="container mt-5">
-    <h2 class="mb-4">Add a New Post</h2>
+    <h2 class="mb-4">Update the Post</h2>
      
-    <form action="{{route('addpost.post') }}" method="POST" id="postForm">
+    <form action="{{url('update_post.post',$post->id)}}" method="POST" id="updatepostForm">
         @csrf
+        
         <div class="form-group">
             <label for="postTitle">Post Title</label>
-            <input type="text" name="post_title" class="form-control" id="postTitle" placeholder="Enter the title" required>
+            <input type="text" name="post_title" class="form-control" id="postTitle" value="{{ $post->post_title }}" placeholder="Enter the title" required>
         </div>
         <div class="form-group">
             <label for="post_category">Post Category</label>
             <select class="form-control" id="post_category" name="post_category_id" required>
                 <option value="" disabled selected>Select a category</option>
-               
+       
+                      
                 @foreach($categories as $category)
                 <option value="{{ $category->cat_id }}">{{ $category->cat_name }}</option>
             @endforeach
-      
             </select>
+        </div>
+        <div class="form-group">
+            <label for="Old image" class="form-label">Old Image</label>
+           <img src="{{ asset('storage/' . $post->image) }}" height="100px" width="150px" alt="" srcset="">
         </div>
         <div class="form-group">
             <label for="image" class="form-label">Post Image</label>
@@ -36,14 +41,14 @@
 
         <div class="form-group">
             <label for="postContent">Post Content</label>
-            <textarea  name="post_content" class="form-control" id="postContent" rows="4" placeholder="Enter the content" required></textarea>
+            <textarea  name="post_content" class="form-control" id="postContent" rows="4" placeholder="Enter the content" required>{{ $post->post_content }}</textarea>
         </div>
 
         <div class="form-group">
-            <div id="postAlert" class="text-danger font-weight-bolder"></div>
+            <div id="updatepostAlert" class="text-danger font-weight-bolder"></div>
           </div>
         <div class="form-group">
-            <input type="submit" id="addpost-btn" value="Post" class="btn btn-primary btn-lg btn-block myBtn" />
+            <input type="submit" id="updatepost-btn" value="Update Post" class="btn btn-primary btn-lg btn-block myBtn" />
           </div>
     </form>
 </div>
@@ -55,31 +60,32 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
 $(document).ready(function (){
- $("#postForm").submit(function (e){
+ $("#updatepostForm").submit(function (e){
     e.preventDefault();
-    $("#addpost-btn").val('Please Wait..');
+    $("#updatepost-btn").val('Please Wait..');
 
-    var form = $("#postForm")[0];
+    var form = $("#updatepostForm")[0];
     var data = new FormData(form);
 
-    // data.set('post_category_id', $('#post_category').val());
+    data.set('post_category_id', $('#post_category').val());
 
     $.ajax({
         type : "POST",
-        url: " {{route('addpost.post') }}",
+        url: " {{route('update_post.post',['post_id' => $post->post_id])}}",
         data : data,
         processData: false,
         contentType: false,
 
         success: function(response){
-            console.log(response);
-            $("#postAlert").text("Post  Added");
-            $("#addpost-btn").val('Post');
+            // console.log(response);
+            $("#updatepostAlert").text("Post  Updated");
+            $("#updatepost-btn").val('Update Post');
+            window.location.href = "/show_posts";
         },
         error: function (error) {
-                   console.error(error.responseText);
-                    $("#postAlert").text("Post Not Added");
-                    $("#addpost-btn").val('Post');
+            console.error(error.responseText);
+                    $("#updatepostAlert").text("Post Not Updated");
+                    $("#updatepost-btn").val('Update Post');
                 }
     });
 

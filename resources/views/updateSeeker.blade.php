@@ -7,7 +7,7 @@
     <title>Update Seeker Details</title>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
-    <style>
+    {{-- <style>
         body {
             overflow-x: hidden;
             background-color: #f8f9fa;
@@ -73,7 +73,7 @@
     padding: 10px; /* Adjust the padding as per your preference */
 }
 
-    </style>
+    </style> --}}
 </head>
 
 <body>
@@ -81,7 +81,7 @@
     <div class="container-fluid">
         <div class="row">
             <!-- Update Form -->
-            <div class="col-md-16">
+            <div class="container">
                 <div class="update-form">
                     <h2 class="form-group">Update Seeker Details</h2>
 
@@ -126,6 +126,26 @@
                         </div>
 
                         <div class="form-group">
+                            <label for="dob" class="form-label">Date Of Birth</label>
+                            <input type="date" class="form-control" id="dob" name="date_of_birth" placeholder="Enter your Birthdate">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="qualification" class="form-label">Qualification</label>
+                            <input type="text" class="form-control" id="qual" name="qualification" placeholder="Enter your Qualification">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="skills" class="form-label">Skills Required</label>
+                            <input type="text" class="form-control" id="skills" name="skills" placeholder="Enter your Skills">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="description" class="form-label">Description</label>
+                            <textarea class="form-control" name="description" id="description" rows="6" placeholder="Enter your description" required></textarea>
+                        </div>
+
+                        <div class="form-group">
                             <label for="image" class="form-label">Profile Image</label>
                             <input type="file" class="form-control" id="image" name="image">
                         </div>
@@ -140,9 +160,9 @@
         </div>
 
 
-        <div class="image-container" >
+        {{-- <div class="image-container" >
             <img id="previewImage" src="{{ asset('storage/' . $user->image) }}" alt="Profile Image" class="profile-image">
-        </div>
+        </div> --}}
         
     </div>
 
@@ -183,6 +203,7 @@
                     $("#image-container").show(); // Show the container if it was hidden
                 },
                 error: function (error) {
+                    console.error(error);
                     $("#updateMessage").text('Not Updated');
                     $("#update-btn").val('Update Details');
                 }

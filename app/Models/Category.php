@@ -10,7 +10,13 @@ class Category extends Model
     use HasFactory;
 
       // Define the table associated with the model
-     public $table = 'categories';
+ // Assuming your table name is 'categories'
+ protected $table = 'categories';
+
+ // Assuming your primary key is 'id'
+ protected $primaryKey = 'cat_id';
+
+ // Other properties and methods as needed
 
      
 }

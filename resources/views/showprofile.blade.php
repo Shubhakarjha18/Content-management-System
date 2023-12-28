@@ -7,11 +7,12 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
-        .profile-image {
-            width: 80px; /* Adjust the size as needed for a passport-size photo */
-            height: 80px;
-            border-radius: 50%;
-            object-fit: cover;
+        .image-container {
+           
+    background: #fff;
+    padding: 0px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 1px 4px rgba(0, 0, 0, 0.3);
+    margin-bottom: 15px;
         }
     </style>
 </head>
@@ -20,18 +21,37 @@
 <div class="container mt-5">
     <h2>User Details</h2>
     
-    {{-- <div class="card">
-        <img src="{{ asset($user->image) }}" alt="User Image" class="card-img-top profile-image">
+    <div class="card">
+        
         <div class="card-body">
-            <h5 class="card-title">{{ $users->name }}</h5>
-            <p class="card-text"><strong>Email:</strong> {{ $user->email }}</p>
-            <p class="card-text"><strong>Age:</strong> {{ $user->age }}</p>
-            <p class="card-text"><strong>Gender:</strong> {{ $user->gender }}</p>
-            <p class="card-text"><strong>Phone:</strong> {{ $user->phone }}</p>
-            
-            <!-- Add more details as needed -->
+            <div class="card-deck">
+
+          
+            <div class="card border-primary">
+           
+         
+            <div class="card-text">
+            <p class="card-text p-1 m-2 rounded" style="border:1px solid #0275d8"><strong>Name:</strong> {{ $user->name }}</p>
+            <p class="card-text p-1 m-2 rounded" style="border:1px solid #0275d8"><strong>Email:</strong> {{ $user->email }}</p>
+            <p class="card-text p-1 m-2 rounded" style="border:1px solid #0275d8"><strong>Age:</strong> {{ $user->age }}</p>
+            <p class="card-text p-1 m-2 rounded" style="border:1px solid #0275d8"><strong>Gender:</strong> {{ $user->gender }}</p>
+            <p class="card-text p-1 m-2 rounded" style="border:1px solid #0275d8"><strong>Phone:</strong> {{ $user->phone }}</p>
+            <p class="card-text p-1 m-2 rounded" style="border:1px solid #0275d8"><strong>Date Of Birth:</strong> {{ $user->date_of_birth }}</p>
+            <p class="card-text p-1 m-2 rounded" style="border:1px solid #0275d8"><strong>Qualification:</strong> {{ $user->qualification }}</p>
+            <p class="card-text p-1 m-2 rounded" style="border:1px solid #0275d8"><strong>Skills:</strong> {{ $user->skills }}</p>
+            <p class="card-text p-1 m-2 rounded" style="border:1px solid #0275d8"><strong>Description:</strong> {{ $user->description }}</p>
+        
         </div>
-    </div> --}}
+        </div>
+        <div class="card border-primary">
+
+            <div class="image-container">
+                <img src="{{ asset('storage/' . $user->image) }}" alt="Image" class="img-fluid">
+            </div>
+        </div>
+    </div> <!-- Add more details as needed -->
+        </div>
+    </div>
 </div>
 
 <!-- Bootstrap JS and dependencies -->

@@ -24,33 +24,46 @@
         <a class="menu-toggle rounded" href="#"><i class="fas fa-bars"></i></a>
         <nav id="sidebar-wrapper">
             <ul class="sidebar-nav">
-                
-                <li class="sidebar-nav-item">Logged in as: {{ Auth::user()->email }}</li>
-                
-                <li class="sidebar-nav-item"><a href="#page-top">Home</a></li>
-                <!-- Dropdown menu for Seekers Room -->
                 <li class="sidebar-nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="seekersDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Seekers Room
+                    <a class="nav-link dropdown-toggle" href="/showprofile" id="seekersDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        {{ Auth::user()->name }}
                     </a>
                     <div class="dropdown-menu" aria-labelledby="seekersDropdown">
-                        <a class="btn btn-primary" href="/updateSeeker">Update Seeker</a>
-                        <a class="btn btn-success" href="/add_post">Add posts</a>
-                        <a class="btn btn-danger" href="/showprofile">My Profile</a>
+                        <a class="btn btn-warning" href="/updateSeeker">Update Seeker</a>
+                        
+                        <a class="btn btn-warning" href="/showprofile">My Profile</a>
+                        <a class="btn btn-danger" href="{{ route('logout') }}">Logout</a>
                     </div>
                 </li>
+                {{-- <li class="sidebar-nav-item">Logged in as: {{ Auth::user()->email }}</li> --}}
+                
+                <li class="sidebar-nav-item"><a href="/home">Home</a></li>
+                <!-- Dropdown menu for SeekersPosts-->
+                <li class="sidebar-nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="postsDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                       Seeker Posts
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="postsDropdown">
+                       
+                        <a class="btn btn-dark" href="/add_post">Add posts</a>
+                        {{-- <a class="btn btn-dark" href="/update_post">Update posts</a> --}}
+                        <a class="btn btn-dark" href="/show_posts">View posts</a>
+                      
+                    </div>
+                </li>
+              
 
                 <li class="sidebar-nav-item"><a href="/categories">Categories</a></li>
-                <li class="sidebar-nav-item"><a href="#portfolio">Portfolio</a></li>
-                <li class="sidebar-nav-item"><a href="{{ route('logout') }}">Logout</a></li>
+                <li class="sidebar-nav-item"><a href="/comment">Comments</a></li>
+                {{-- <li class="sidebar-nav-item"><a href="{{ route('logout') }}">Logout</a></li> --}}
             </ul>
         </nav>
         <!-- Header-->
         <header class="masthead d-flex align-items-center">
             <div class="container px-4 px-lg-5 text-center">
-                <h1 class="mb-1">Stylish Portfolio</h1>
-                <h3 class="mb-5"><em>A Free Bootstrap Theme by Start Bootstrap</em></h3>
-                <a class="btn btn-primary btn-xl" href="#about">Find Out More</a>
+                <h1 class="mb-1">Welcome {{ Auth::user()->name}}</h1>
+                <h3 class="mb-5"><em>Lets See Your Posts</em></h3>
+                <a class="btn btn-primary btn-xl" href="/show_posts">Lets GO!!!</a>
             </div>
         </header>
         <!-- About-->
@@ -58,7 +71,7 @@
             <div class="container px-4 px-lg-5 text-center">
                 <div class="row gx-4 gx-lg-5 justify-content-center">
                     <div class="col-lg-10">
-                        <h2>Stylish Portfolio is the perfect theme for your next project!</h2>
+                        <h2>What Categoies do we Offer!!!</h2>
                         <p class="lead mb-5">
                             This theme features a flexible, UX friendly sidebar menu and stock photos from our friends at
                             <a href="https://unsplash.com/">Unsplash</a>

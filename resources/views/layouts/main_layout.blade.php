@@ -98,20 +98,26 @@
                 processData: false,
                 contentType: false,
                 success: function (response) {
-                    console.log(response);
-                    if (response.status === 'Registered') {
-                        $("#passError").text('Registered');
-                        window.location.href = "/login";
-                    } else {
-                        $("#passError").text('Not Registered');
-                    }
-    
-                    $("#register-btn").val('Sign Up');
-                },
-                error: function (e) {
-                    console.error(e);
+                            // console.log('Response:', response);
+                           
+                            var userRole = response.role.trim();
+                            // console.log('User Role:', userRole);
+
+                            if (userRole === 'admin') {
+                                // console.log('Redirecting to /admin/authenticator');
+                                $("#passError").text('Registered');
+                                window.location.href = "/admin/authenticator";
+                            } else {
+                                // console.log('Redirecting to /login');
+                                $("#passError").text('Registered');
+                                window.location.href = "/login";
+                            }
+                        },
+                error: function (error) {
+                    console.error(error);
                     $("#passError").text('Not Registered');
                     $("#register-btn").val('Sign Up');
+                    // window.location.href = "/signup";
                 }
             });
         });
@@ -135,6 +141,7 @@
                 },
                 error: function (e) {
                     console.error(e);
+                    $("#loggError").text('Not logged In');
                     $("#login-btn").val('Please Wait..');
                     window.location.href = "/home";
                 }

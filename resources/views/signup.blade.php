@@ -41,6 +41,15 @@
               </div>
               <input type="password" id="cpassword" name="cpassword" class="form-control rounded-0" minlength="5" placeholder="Confirm Password" required />
             </div>
+            <div class="input-group input-group-lg form-group">
+              <div class="input-group-prepend">
+                <label class="input-group-text" for="role"><i class="fas fa-users fa-lg fa-fw"></i></label>
+              </div>
+              <select class="custom-select rounded-0" id="role" name="role" required>
+                <option value="user">User</option>
+                <option value="admin">Admin</option>
+              </select>
+            </div>
             <div class="form-group">
               <div id="passError" class="text-danger font-weight-bolder"></div>
             </div>
