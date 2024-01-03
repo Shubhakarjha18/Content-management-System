@@ -10,18 +10,18 @@
 <body>
 
 <div class="container mt-5">
-    <h2 class="mb-4">Add a New Category</h2>
+    <h2 class="mb-4">Update The Category</h2>
     
-    <form action="{{ route('addcategory.post') }}" method="post" id="addCategoryform">
+    <form action="{{ route('editcategory.post',$categories->cat_id) }}" method="post" id="addCategoryform">
         @csrf
         <div class="form-group">
             <label for="categoryName">Category Name</label>
-            <input type="text" name="cat_name" class="form-control" id="categoryName" placeholder="Enter the category name" required>
+            <input type="text" name="cat_name" class="form-control" id="categoryName" placeholder="Enter the category name" value="{{$categories->cat_name}}" required>
         </div>
 
         <div class="form-group">
             <label for="categoryDescription">Category Description</label>
-            <textarea class="form-control" name="cat_descp" id="categoryDescription" rows="4" placeholder="Enter the category description" required></textarea>
+            <textarea class="form-control" name="cat_descp" id="categoryDescription" rows="4" placeholder="Enter the category description"  required>{{$categories->cat_descp}}</textarea>
         </div>
 
         <div class="form-group">
@@ -29,7 +29,7 @@
           </div>
 
         <div class="form-group">
-            <input type="submit" id="addCat-btn" value="Add" class="btn btn-primary btn-lg btn-block myBtn" />
+            <input type="submit" id="addCat-btn" value="Update" class="btn btn-primary btn-lg btn-block myBtn" />
           </div>
     </form>
 </div>
@@ -52,21 +52,21 @@
 
             $.ajax({
                 type : "POST",
-                url : "{{ route('addcategory.post') }}",
+                url : "{{ route('editcategory.post',['cat_id' => $categories->cat_id]) }}",
                 data: data,
                 processData: false,
                 contentType: false,
 
                 success: function(response){
                     // console.log(response);
-                    $("#catAlert").text("Category Added");
-                    $("#addCat-btn").val('Add');
+                    $("#catAlert").text("Category Updated");
+                    $("#addCat-btn").val('Update');
 
                 },
                 error: function (error) {
-                    console.error(error);
-                    $("#catAlert").text("Category Not Added");
-                    $("#addCat-btn").val('Add');
+                    console.error(error.responseJSON);
+                    $("#catAlert").text("Category Not Updated");
+                    $("#addCat-btn").val('Update');
                 }
             });
         });

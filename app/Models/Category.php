@@ -17,6 +17,9 @@ class Category extends Model
  protected $primaryKey = 'cat_id';
 
  // Other properties and methods as needed
-
+ public function user()
+    {
+        return $this->belongsTo(User::class, 'category_user_id');
+    }
      
 }

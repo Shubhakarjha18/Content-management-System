@@ -21,9 +21,13 @@ class Comment extends Model
 
  
     public function post()
-    {
+    { return $this->belongsTo(Post::class);
         return $this->belongsTo(Post::class, 'comment_post_id');
     }
-   
+   // Comment.php
+
+
+
+
 
 }

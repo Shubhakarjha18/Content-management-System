@@ -6,11 +6,14 @@ use App\Models\User;
 use App\Models\Category;
 use App\Models\Post;
 use App\Models\Comment;
+use Carbon\Carbon;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
 
 
 class AuthController extends Controller
@@ -283,10 +286,15 @@ public function addcategoryPost(Request $request){
         'cat_descp' => 'required|string|max:1000'
         
     ]);
-
+    $user = Auth::user();
+    $userid = $user->id; 
+    $now = now();
     $cat_query = DB::table('categories')->insert([
         'cat_name' => $request->input('cat_name'),
-        'cat_descp' => $request->input('cat_descp')
+        'cat_descp' => $request->input('cat_descp'),
+        'category_user_id' => $userid,
+        'created_at' => $now,
+        'updated_at' => $now,
         
     ]);
 
@@ -417,7 +425,9 @@ public function comment_post(Request $request, $post_id){
 
         
         'comment_user_id' => $userid,
-        'comment_post_id' => $postId
+        'comment_post_id' => $postId,
+        'created_at' => now(),
+        'updated_at' => now(),
         
     ]);
     return redirect()->back()->with('success', 'Comment posted successfully.');
@@ -431,6 +441,150 @@ public function showComment($id)
     $comments = Comment::all();
 
     return view('view_comments', compact('comments'));
+}
+
+
+public function view_post_table(){
+    $user = Auth::user();
+    // $posts = Post::all();
+    $posts = Post::where('user_id',$user->id)->orderBy('post_id','desc')->get();
+    return view('tables/post_table',compact('user', 'posts'));
+}
+public function show($id)
+{
+    $post = Post::find($id);
+
+    return view('posts', compact('post'));
+}
+public function confirmDelete($id)
+{
+    $post = Post::find($id);
+    $post->delete();
+
+    return redirect('/tables/post_table')->with('status',"Data deleted successfully");
+}
+public function view_categories_table(){
+    $user = Auth::user();
+    // $posts = Post::all();
+    $categories = Category::where('category_user_id',$user->id)->orderBy('cat_id','desc')->get();
+    return view('tables/categories_table',compact('user', 'categories'));
+}
+public function show_category($id)
+{
+   
+    $category = Category::find($id);
+    $categories = Category::where('category_user_id', $id)->get();
+
+    return view('show_categories', compact('categories','category'));
+}
+public function catDelete($id)
+{
+    $category = Category::find($id);
+    $category->delete();
+
+    return redirect('/tables/categories_table')->with('status',"Data deleted successfully");
+}
+public function editCategory($id){
+  
+    $categories = Category::Find($id);
+   
+     
+     return view('edit_category',compact('categories'));
+ }
+public function editCategory_post(Request $request, $id)
+{
+    // Validate the incoming request data
+   
+    $request->validate([
+        'cat_name' => 'required|string|max:255',
+        'cat_descp' => 'required|string|max:1000'
+        
+    ]);
+
+    // Find the post by ID
+    $category = Category::Find($id);
+
+    // Check if the post exists
+    if (!$category) {
+        // Handle the case where the post is not found, e.g., redirect back or show an error message
+        return redirect()->back()->with('error', 'category not found');
+    }
+
+    // Update post data
+    $category->cat_name = $request->input('cat_name');
+    $category->cat_descp = $request->input('cat_descp');
+  
+
+  
+    // Save the updated post
+    $category->save();
+
+    // Redirect with a success message
+    // return redirect()->route('/tables/categories_table')->with('success', 'Categories updated successfully');
+}
+public function view_comments_table(){
+    $user = Auth::user();
+    // $posts = Post::all();
+    $comments = Comment::where('comment_user_id',$user->id)->orderBy('comment_id','desc')->get();
+    return view('tables/comments_table',compact('user', 'comments'));
+}
+public function commentDelete($id)
+{
+    $comment = Comment::find($id);
+    
+    if (!$comment) {
+        // Comment not found
+        return redirect('/tables/comments_table')->with('error', 'Comment not found.');
+    }
+    $comment->delete();
+
+    return redirect('/tables/comments_table')->with('status',"Data deleted successfully");
+}
+
+public function forget_password(){
+    return view('forget_password');
+}
+
+public function forget_passwordPost(Request $request){
+    $request->validate([
+        'email' => "required|email|exists:users",
+    ]);
+
+    $token = Str::random(64);
+
+    DB::table('password_reset_tokens')->insert([
+        'email' => $request->email,
+        'token' => $token,
+        'created_at' => Carbon::now()
+    ]);
+
+    Mail::send('emails.forget-password', ['token'=> $token], function ($message) use ($request){
+        $message->to($request->email);
+        $message->subject("Reset password");
+    });
+    
+}
+
+public function reset_password($token){
+return view('new_password',compact('token'));
+}
+public function reset_passwordPost(){
+$request->validate([
+    'email' => 'required|email|unique:users,email',
+    'password' => 'required|string|min:5|confirmed',
+    'cpassword' => 'required',
+
+]);
+
+$updatePassword = DB::table('password_reset_tokens')->where([
+'email' => $request->email,
+'token' => $request->token,
+'created_at' => now(),
+])->first();
+
+User::where('email', $request->email)->update(["password" => Hash::make($request->password)]);
+DB::table('password_reset_tokens')->where([
+    'email' => $request->email])->delete();
 }
 
 

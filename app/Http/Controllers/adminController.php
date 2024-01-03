@@ -9,6 +9,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Contracts\Auth\Authenticatable;
 use App\Models\AdminUser;
 use App\Models\User;
+use App\Models\Category;
+use App\Models\Post;
+use App\Models\Comment;
 
 class adminController extends Controller
 {
@@ -63,8 +66,34 @@ class adminController extends Controller
     
         return back()->withInput($request->only('admin_email', 'remember'))->withErrors(['admin_email' => 'Invalid credentials']);
     }
+
+    public function display_Posts()
+    {
+        // Check if the user is authenticated before accessing the 'id' property
+        if (Auth::check()) {
+            $user = Auth::user();
     
+            // Ensure that the user object is not null before accessing the 'id' property
+            if ($user) {
+                $posts = Post::where('user_id', $user->id)->get();
+    
+                foreach ($posts as $post) {
+                    $comments = Comment::where('comment_post_id', $post->post_id)->get();
+                    $post->comments = $comments;
+                }
+    
+                return view('show_posts', ['posts' => $posts]);
+            }
+        }
+    
+        // Redirect to the login page or handle unauthorized access as needed
+        return redirect()->route('login');
     }
+   
+}
+    
+    
+  
 
 
 

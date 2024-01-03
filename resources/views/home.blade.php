@@ -54,7 +54,18 @@
               
 
                 <li class="sidebar-nav-item"><a href="/categories">Categories</a></li>
-                <li class="sidebar-nav-item"><a href="/comment">Comments</a></li>
+                <li class="sidebar-nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="/showprofile" id="seekersDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Tables
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="seekersDropdown">
+                        <a class="btn btn-dark" href="/tables/post_table">Posts</a>
+                        <a class="btn btn-dark" href="/tables/categories_table">Categories</a>
+                        <a class="btn btn-dark" href="/tables/comments_table">Comments</a>
+                        
+                        
+                    </div>
+                </li>
                 {{-- <li class="sidebar-nav-item"><a href="{{ route('logout') }}">Logout</a></li> --}}
             </ul>
         </nav>
@@ -62,11 +73,11 @@
         <header class="masthead d-flex align-items-center">
             <div class="container px-4 px-lg-5 text-center">
                 <h1 class="mb-1">Welcome {{ Auth::user()->name}}</h1>
-                <h3 class="mb-5"><em>Lets See Your Posts</em></h3>
+                <h3 class="mb-5"><em>Lets See ALL Posts</em></h3>
                 <a class="btn btn-primary btn-xl" href="/show_posts">Lets GO!!!</a>
             </div>
         </header>
-        <!-- About-->
+        {{-- <!-- About-->
         <section class="content-section bg-light" id="about">
             <div class="container px-4 px-lg-5 text-center">
                 <div class="row gx-4 gx-lg-5 justify-content-center">
@@ -74,7 +85,7 @@
                         <h2>What Categoies do we Offer!!!</h2>
                         <p class="lead mb-5">
                             This theme features a flexible, UX friendly sidebar menu and stock photos from our friends at
-                            <a href="https://unsplash.com/">Unsplash</a>
+                            <a href="/tables/categories_table">Unsplash</a>
                             !
                         </p>
                         <a class="btn btn-dark btn-xl" href="#services">What We Offer</a>
@@ -213,7 +224,7 @@
                 </ul>
                 <p class="text-muted small mb-0">Copyright &copy; Your Website 2023</p>
             </div>
-        </footer>
+        </footer> --}}
         <!-- Scroll to Top Button-->
         <a class="scroll-to-top rounded" href="#page-top"><i class="fas fa-angle-up"></i></a>
         <!-- Bootstrap core JS-->

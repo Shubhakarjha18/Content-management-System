@@ -29,7 +29,7 @@
                 <label class="custom-control-label" for="customCheck">Remember me</label>
               </div>
               <div class="forgot float-right">
-                <a href="#" id="forgot-link">Forgot Password?</a>
+                <a href="/forget_password" id="forgot-link">Forgot Password?</a>
               </div>
             </div>
             <div class="form-group">

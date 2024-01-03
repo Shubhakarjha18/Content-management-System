@@ -110,7 +110,7 @@
                    
                         $("#loggError").text('Logged In');
                         $("#login-btn").val('Sign In');
-                        // window.location.href = "/admin/admin_home";
+                        window.location.href = "/admin/admin_home";
                     
                 },
                 error: function (error) {

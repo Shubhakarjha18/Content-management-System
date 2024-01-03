@@ -24,36 +24,10 @@
     @yield('signup')
     <!-- Registration Form End -->
     <!-- Forgot Password Form Start -->
-    <div class="row justify-content-center wrapper" id="forgot-box" style="display: none;">
-      <div class="col-lg-10 my-auto myShadow">
-        <div class="row">
-          <div class="col-lg-7 bg-white p-4">
-            <h1 class="text-center font-weight-bold text-primary">Forgot Your Password?</h1>
-            <hr class="my-3" />
-            <p class="lead text-center text-secondary">To reset your password, enter the registered e-mail adddress and we will send you password reset instructions on your e-mail!</p>
-            <form action="#" method="post" class="px-3" id="forgot-form">
-              @csrf
-              <div id="forgotAlert"></div>
-              <div class="input-group input-group-lg form-group">
-                <div class="input-group-prepend">
-                  <span class="input-group-text rounded-0"><i class="far fa-envelope fa-lg"></i></span>
-                </div>
-                <input type="email" id="femail" name="email" class="form-control rounded-0" placeholder="E-Mail" required />
-              </div>
-              <div class="form-group">
-                <input type="submit" id="forgot-btn" value="Reset Password" class="btn btn-primary btn-lg btn-block myBtn" />
-              </div>
-            </form>
-          </div>
-          <div class="col-lg-5 d-flex flex-column justify-content-center myColor p-4">
-            <h1 class="text-center font-weight-bold text-white">Reset Password!</h1>
-            <hr class="my-4 bg-light myHr" />
-            <button class="btn btn-outline-light btn-lg font-weight-bolder myLinkBtn align-self-center" id="back-link">Back</button>
-          </div>
-        </div>
-      </div>
-    </div>
+   @yield('forgot')
     <!-- Forgot Password Form End -->
+    @yield('reset')
+
   </div>
     
   <script>
@@ -99,19 +73,20 @@
                 contentType: false,
                 success: function (response) {
                             // console.log('Response:', response);
-                           
-                            var userRole = response.role.trim();
+                            $("#passError").text('Registered');
+                                window.location.href = "/login";
+                            // var userRole = response.role.trim();
                             // console.log('User Role:', userRole);
 
-                            if (userRole === 'admin') {
-                                // console.log('Redirecting to /admin/authenticator');
-                                $("#passError").text('Registered');
-                                window.location.href = "/admin/authenticator";
-                            } else {
-                                // console.log('Redirecting to /login');
-                                $("#passError").text('Registered');
-                                window.location.href = "/login";
-                            }
+                            // if (userRole === 'admin') {
+                            //     // console.log('Redirecting to /admin/authenticator');
+                            //     $("#passError").text('Registered');
+                            //     window.location.href = "/admin/authenticator";
+                            // } else {
+                            //     // console.log('Redirecting to /login');
+                            //     $("#passError").text('Registered');
+                            //     window.location.href = "/login";
+                            // }
                         },
                 error: function (error) {
                     console.error(error);
@@ -148,7 +123,33 @@
             });
         });
     
-        console.log("Signup route: {{ route('signup.post') }}");
+       
+        $("#forgot-form").submit(function (e) {
+            e.preventDefault();
+            $("#forgot-btn").val('Please Wait..');
+            var form = $("#forgot-form")[0];
+            data = new FormData(form);
+    
+            $.ajax({
+                type: "POST",
+                url: "{{ route('forget.password.post') }}",
+                data: data,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    console.log(response);
+                    $("#forgotAlert").text('Email Sent');
+                    $("#forgot-btn").val('Reset Password');
+                 
+                },
+                error: function (e) {
+                    console.error(e.responseJSON);
+                    $("#forgotAlert").text('Not Sent');
+                    $("#forgot-btn").val('Please Wait..');
+                   
+                }
+            });
+        });
     });
     </script>
     

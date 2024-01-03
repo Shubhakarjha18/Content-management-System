@@ -65,6 +65,11 @@
                                 <i class="fas fa-table"></i> Tables
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="../show_posts">
+                                <i class="fas fa-table"></i> Posts
+                            </a>
+                        </li>
                         <!-- Add more menu items as needed -->
                     </ul>
                 </div>
