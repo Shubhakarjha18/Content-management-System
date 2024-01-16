@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
+use App\Http\Controllers\adminController;
 
 
 class AuthController extends Controller
@@ -99,7 +100,8 @@ class AuthController extends Controller
        $remember = $request->input('remember');
 
 
-        if(Auth::attempt($credentials,$remember)){
+        if(Auth::guard('web')->attempt($credentials,$remember)){
+         
             // return redirect()->route('/home')->withCookie(cookie('remember_token', str_random(60), 1440));
             if(isset($remember)&&!empty($remember)){
                
@@ -110,7 +112,10 @@ class AuthController extends Controller
                 setcookie("email","");
                 setcookie("password","");
             }
+            
             return redirect()->route('/home');
+    
+        
         } 
         return back()->withInput($request->only('email', 'remember'))->withErrors(['email' => 'Invalid credentials']);
 }
@@ -123,7 +128,9 @@ public function HomePage(){
 
 public function loggeduser()
 {
+
     $userEmail = auth()->user()->email;
+    $this->updateUserActivity();
     return view('home', ['email' => $userEmail]);
 }
 
@@ -585,6 +592,17 @@ $updatePassword = DB::table('password_reset_tokens')->where([
 User::where('email', $request->email)->update(["password" => Hash::make($request->password)]);
 DB::table('password_reset_tokens')->where([
     'email' => $request->email])->delete();
+}
+
+public function view_all_posts(){
+    $posts = Post::orderBy('post_id', 'desc')->get();
+    
+    foreach ($posts as $post) {
+        $comments = Comment::where('comment_post_id', $post->post_id)->get();
+        $post->comments = $comments;
+    }
+
+    return view('view_all_posts',['posts' => $posts]);
 }
 
 

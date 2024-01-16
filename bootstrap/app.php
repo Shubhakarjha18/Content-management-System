@@ -1,14 +1,9 @@
 <?php
 
 /*
-|--------------------------------------------------------------------------
-| Create The Application
-|--------------------------------------------------------------------------
-|
-| The first thing we will do is create a new Laravel application instance
-| which serves as the "glue" for all the components of Laravel, and is
-| the IoC container for the system binding all of the various parts.
-|
+|The Application class from the Illuminate\Foundation namespace is instantiated. 
+The $_ENV['APP_BASE_PATH'] ?? dirname(__DIR__) part sets the base path for the application.
+ It checks if the APP_BASE_PATH environment variable is set; if not, it uses the parent directory of the current directory (__DIR__) as the base path.
 */
 
 $app = new Illuminate\Foundation\Application(

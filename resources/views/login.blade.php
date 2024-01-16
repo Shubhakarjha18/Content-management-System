@@ -43,8 +43,9 @@
         <div class="col-lg-5 d-flex flex-column justify-content-center myColor p-4">
           <h1 class="text-center font-weight-bold text-white">Hello Friends!</h1>
           <hr class="my-3 bg-light myHr" />
-          <p class="text-center font-weight-bolder text-light lead">Enter your personal details and start your journey with us!</p>
-         <a href="/signup"> <button class="btn btn-outline-light btn-lg align-self-center font-weight-bolder mt-4 myLinkBtn" id="register-link">Sign Up</button></a>
+          <p class="text-center font-weight-bolder text-light lead">Lets Sign up Here!!!</p>
+         <a href="/signup"> <button class="btn btn-outline-light btn-lg align-self-center font-weight-bolder mt-4 myLinkBtn" id="register-link">Users</button></a>
+         <a href="/admin/admin_signup"> <button class="btn btn-outline-light btn-lg align-self-center font-weight-bolder mt-4 myLinkBtn" id="admin-register-link">Admins</button></a>
         </div>
       </div>
     </div>

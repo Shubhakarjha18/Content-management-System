@@ -1,0 +1,40 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::create('admins', function (Blueprint $table) {
+            $table->id('admin_id');
+            $table->string('admin_name');
+            $table->string('admin_email')->unique();
+            $table->timestamp('admin_email_verified_at')->nullable();
+            $table->string('admin_password');
+            $table->rememberToken();
+            $table->string('admin_age')->nullable();
+            $table->string('admin_gender')->nullable();
+            $table->string('admin_phone')->nullable();
+            $table->mediumText('admin_image')->nullable();
+            $table->timestamps();
+            $table->longText('admin_description')->nullable();
+            $table->string('admin_qualification')->nullable();
+            $table->mediumText('admin_skills')->nullable();
+            $table->date('admin_date_of_birth')->nullable();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('admins');
+    }
+};

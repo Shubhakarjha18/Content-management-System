@@ -13,7 +13,7 @@ class Post extends Model
     protected $primaryKey = 'post_id';
 
     // Define the fillable attributes to allow mass assignment
-    protected $fillable = ['post_title', 'post_content', 'user_id', 'post_category_id'];
+    protected $fillable = ['post_title', 'post_content', 'user_id', 'post_category_id', 'Approval'];
 
     // Relationships
 

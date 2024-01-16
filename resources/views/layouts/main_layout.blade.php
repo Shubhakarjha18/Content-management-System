@@ -73,20 +73,20 @@
                 contentType: false,
                 success: function (response) {
                             // console.log('Response:', response);
-                            $("#passError").text('Registered');
-                                window.location.href = "/login";
-                            // var userRole = response.role.trim();
-                            // console.log('User Role:', userRole);
-
-                            // if (userRole === 'admin') {
-                            //     // console.log('Redirecting to /admin/authenticator');
-                            //     $("#passError").text('Registered');
-                            //     window.location.href = "/admin/authenticator";
-                            // } else {
-                            //     // console.log('Redirecting to /login');
-                            //     $("#passError").text('Registered');
+                            // $("#passError").text('Registered');
                             //     window.location.href = "/login";
-                            // }
+                            var userRole = response.role.trim();
+                            console.log('User Role:', userRole);
+
+                            if (userRole === 'admin') {
+                                // console.log('Redirecting to /admin/authenticator');
+                                $("#passError").text('Registered');
+                                window.location.href = "/admin/authenticator";
+                            } else {
+                                // console.log('Redirecting to /login');
+                                $("#passError").text('Registered');
+                                window.location.href = "/login";
+                            }
                         },
                 error: function (error) {
                     console.error(error);

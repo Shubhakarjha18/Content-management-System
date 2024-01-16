@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Blog Post - Start Bootstrap Template</title>
+    <title>Admin Post - Start Bootstrap Template</title>
 
     <!-- Bootstrap Core CSS -->
     <!-- Bootstrap Core CSS -->

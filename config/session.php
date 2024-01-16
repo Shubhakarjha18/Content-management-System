@@ -4,6 +4,11 @@ use Illuminate\Support\Str;
 
 return [
 
+
+    // config/session.php
+
+
+
     /*
     |--------------------------------------------------------------------------
     | Default Session Driver
@@ -19,6 +24,9 @@ return [
     */
 
     'driver' => env('SESSION_DRIVER', 'file'),
+
+
+        
 
     /*
     |--------------------------------------------------------------------------

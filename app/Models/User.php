@@ -14,7 +14,7 @@ class User extends Authenticatable
     use HasApiTokens, HasFactory, Notifiable;
 
     protected $table = "users";
- 
+    protected $guard = "users";
     /**
      * The attributes that are mass assignable.
      *
@@ -24,6 +24,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role',
     ];
 
     /**
@@ -46,10 +47,17 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    public function isAdmin()
-    {
-        return $this->role === 'admin';
-    }
+       // Define the relationship for posts
+       public function posts()
+       {
+           return $this->hasMany(Post::class);
+       }
+   
+       // Define the relationship for comments
+       public function comments()
+       {
+           return $this->hasMany(Comment::class);
+       }
 }
 
 
