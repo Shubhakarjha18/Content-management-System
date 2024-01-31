@@ -52,8 +52,8 @@ Route::post('/categories', [AuthController::class,'addcategoryPost'])->name('add
 
 Route::get('/add_post', [AuthController::class,'showPostForm']);
 
-Route::get('/showprofile', [AuthController::class,'ViewProfile']);
-Route::get('/showprofile', [AuthController::class,'showprofile']);
+Route::get('/showprofile/{userId}', [AuthController::class,'ViewProfile']);
+Route::get('/showprofile/{userId}', [AuthController::class,'showprofile'])->name('show.profile');
 Route::get('/update_post/{post_id}', [AuthController::class,'updatePost']);
 Route::post('/update_post/{post_id}', [AuthController::class,'updatePost_post'])->name('update_post.post');
 // Route::get('/update_post/{post_id}', [AuthController::class,'showUpdateForm']);

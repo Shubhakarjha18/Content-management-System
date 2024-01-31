@@ -311,15 +311,16 @@ public function addcategoryPost(Request $request){
 
 
 
-public function showprofile(){
-    $user = Auth::user();
+public function showprofile($userId){
+    $user = User::find($userId);
 
+    
     // Display user details
     return view('showprofile', ['user' => $user]);
 }
 
 
-public function ViewProfile(){
+public function ViewProfile($userId){
     return view('showprofile');
 }
 

@@ -21,5 +21,8 @@ class Category extends Model
     {
         return $this->belongsTo(User::class, 'category_user_id');
     }
+    public function post(){
+        return $this->hasMany(Post::class);
+    }
      
 }

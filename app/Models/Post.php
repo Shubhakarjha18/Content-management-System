@@ -26,13 +26,16 @@ class Post extends Model
     // Define a relationship with the Category model
     public function category()
     {
-        return $this->belongsTo(Category::class, 'cat_id');
+        return $this->belongsTo(Category::class, 'cat_id',);
     }
 
     public function comments()
     {
         return $this->hasMany(Comment::class);
         return $this->hasMany(Comment::class, 'post_id'); // Make sure 'post_id' is the correct foreign key column
+    }
+    public function images(){
+        return $this->hasMany(Image::class);
     }
     }
    

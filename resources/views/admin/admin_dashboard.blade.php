@@ -66,7 +66,7 @@
     
                     <!-- Author -->
                     <p class="lead">
-                        by <a href="/showprofile">{{$post->user->name}}</a>
+                        by <a href="{{route('show.profile',$post->user->id)}}">{{$post->user->name}}</a>
                     </p>
                     @if ($post->approval_status !== 'approved')
                     <form action="{{ route('posts.approve', $post->post_id) }}" method="post">

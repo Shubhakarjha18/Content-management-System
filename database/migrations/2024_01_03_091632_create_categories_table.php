@@ -16,7 +16,7 @@ class CreateCategoriesTable extends Migration
         Schema::create('categories', function (Blueprint $table) {
             $table->id('cat_id');
             $table->string('cat_name')->index();
-            $table->string('cat_descp');
+            $table->text('cat_descp');
             $table->timestamps();
             $table->unsignedBigInteger('category_user_id')->nullable();
             $table->foreign('category_user_id')->references('id')->on('users');

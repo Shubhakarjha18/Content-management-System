@@ -58,7 +58,7 @@
 
                 <!-- Author -->
                 <p class="lead">
-                    by <a href="/showprofile">{{$post->user->name}}</a>
+                    by <a href="{{route('show.profile',$post->user->id)}}">{{$post->user->name}}</a>
                 </p>
                 <p><a href="{{url('update_post',$post->post_id)}}" class="link-underline-dark">Update the post</a></p>
                 <hr>
